@@ -11,7 +11,6 @@ public class ScheduleActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_schedule);
-
     }
     public void goToList(View view) {
         Intent intent = new Intent(this, ListActivity.class);
