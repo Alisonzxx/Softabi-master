@@ -4,6 +4,8 @@
     <string name="button_schedule">しおり</string>
     <string name="button_map">マップ</string>
     <string name="button_editList">編集</string>
+    <string name="edit_schedule">Enter a Schedule</string>
+    <string name="edit_comment">Enter a comment</string>
     <string name="title_activity_schedule">ScheduleActivity</string>
     <string name="action_settings">Settings</string>
     <string name="section_format">Hello World from section: %1$d</string>
