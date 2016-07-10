@@ -10,11 +10,12 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:text="Hello"
+        android:text="もちもの"
         android:textSize="20sp" />
 
     <Button
         android:id="@+id/item_delete"
+        android:onClick="deleteItem"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"

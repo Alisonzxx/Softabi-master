@@ -8,13 +8,14 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
+//import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.example.softabi.softabi.database.ItemContract;
 import com.example.softabi.softabi.database.ItemDbHelper;
@@ -22,7 +23,7 @@ import com.example.softabi.softabi.database.ItemDbHelper;
 import java.util.ArrayList;
 
 public class ListActivity extends AppCompatActivity {
-    private static final String TAG = "ListActivity";
+    //private static final String TAG = "ListActivity";
     private ItemDbHelper mHelper;
     private ListView mItemListView;
     private ArrayAdapter<String> mAdapter;
@@ -56,18 +57,18 @@ public class ListActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.action_add_task:
-                final EditText taskEditText = new EditText(this);
+    public boolean onOptionsItemSelected(MenuItem menu) {
+        switch (menu.getItemId()) {
+            case R.id.action_add_item:
+                final EditText itemEditText = new EditText(this);
                 AlertDialog dialog = new AlertDialog.Builder(this)
-                        .setTitle("Add a new item")
-                        .setMessage("What do you need?")
-                        .setView(taskEditText)
+                        .setTitle("もちものを追加")
+                        .setMessage("必要なものを入力してください。")
+                        .setView(itemEditText)
                         .setPositiveButton("Add", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                String item = String.valueOf(taskEditText.getText());
+                                String item = String.valueOf(itemEditText.getText());
                                 SQLiteDatabase db = mHelper.getWritableDatabase();
                                 ContentValues values = new ContentValues();
                                 values.put(ItemContract.ItemEntry.COL_ITEM_TITLE, item);
@@ -76,21 +77,26 @@ public class ListActivity extends AppCompatActivity {
                                         values,
                                         SQLiteDatabase.CONFLICT_REPLACE);
                                 db.close();
+                                updateUI();
+                                //SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
+                                //String item = String.valueOf(itemEditText.getText());
+                                //sp.edit().putString
+
                             }
                         })
                         .setNegativeButton("Cancel", null)
                         .create();
                 dialog.show();
-                updateUI();
+
                 return true;
 
             default:
-                return super.onOptionsItemSelected(item);
+                return super.onOptionsItemSelected(menu);
         }
     }
 
     private void updateUI() {
-        Log.d(TAG, "updateUI()");
+
         ArrayList<String> itemList = new ArrayList<>();
         SQLiteDatabase db = mHelper.getReadableDatabase();
         Cursor cursor = db.query(ItemContract.ItemEntry.TABLE,
@@ -115,6 +121,18 @@ public class ListActivity extends AppCompatActivity {
 
         cursor.close();
         db.close();
+    }
+
+    public void deleteItem(View view) {
+        View parent = (View) view.getParent();
+        TextView taskTextView = (TextView) parent.findViewById(R.id.item_title);
+        String task = String.valueOf(taskTextView.getText());
+        SQLiteDatabase db = mHelper.getWritableDatabase();
+        db.delete(ItemContract.ItemEntry.TABLE,
+                ItemContract.ItemEntry.COL_ITEM_TITLE + " = ?",
+                new String[]{task});
+        db.close();
+        updateUI();
     }
 
     public void goToEditList(View view) {

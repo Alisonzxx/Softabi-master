@@ -59,14 +59,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"
                 android:id="@+id/timeText"
-                android:text="時刻"
+                android:text="時刻(hour:minのように入力して下さい)"
                 android:textSize="15dp" />
 
-            <TimePicker
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/timePicker" />
 
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="time"
+                android:ems="10"
+                android:id="@+id/timeEdit" />
 
 
             <TextView
@@ -97,6 +99,7 @@
                 android:id="@+id/commentEdit"
                 android:textSize="15dp"
                 android:hint="@string/edit_comment"/>
+
         </LinearLayout>
    </ScrollView>
 
@@ -106,7 +109,7 @@
         android:orientation="horizontal" >
 
         <!-- 画面下部に固定で表示されるレイアウト -->
-        <Button
+        <!--<Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="delete"
@@ -114,15 +117,14 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_alignParentBottom="true" />
-
+-->
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="save"
+            android:onClick="saveSchedule"
             android:id="@+id/button7"
-            android:layout_toRightOf="@+id/button6"
-            android:layout_toEndOf="@+id/button6"
-            android:layout_alignBottom="@+id/button6" />
+            />
     </LinearLayout>
 
 </LinearLayout>

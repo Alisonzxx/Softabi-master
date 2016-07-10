@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,43 +6,37 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.softabi.softabi.ListActivity">
+    tools:context="com.example.softabi.softabi.ScheduleActivity$PlaceholderFragment">
 
     <TextView
+        android:id="@+id/section_label"
         android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        android:text="もちものリスト"
-        android:id="@+id/textView"
-        android:textSize="30sp"
-        android:textColor="#000000" />
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="日付を決定"
+        android:id="@+id/button"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/textView"
+        android:id="@+id/frameLayout"
+        android:layout_below="@+id/button"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true">
 
         <ListView
-            android:id="@+id/list_needs"
+            android:id="@+id/list_schedule"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-
             android:layout_gravity="right|top">
             >
         </ListView>
     </FrameLayout>
 
-
-    <!--
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/button_editList"
-        android:onClick="goToEditList"
-        android:id="@+id/button5"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />-->
 </RelativeLayout>
