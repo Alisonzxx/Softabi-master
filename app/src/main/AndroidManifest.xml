@@ -35,13 +35,6 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
-        <activity
-            android:name=".MapsActivity"
-            android:label="@string/title_activity_maps">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="TopActivity" />
-        </activity>
         <activity android:name=".EditListActivity" />
         <activity android:name=".ListActivity" />
         <activity android:name=".EditActivity" />
@@ -52,7 +45,11 @@
         <activity
             android:name=".SampleActivity"
             android:label="@string/title_activity_sample"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".FirstDayActivity" />
+        <activity
+            android:name=".MapsActivity"
+            android:label="@string/title_activity_maps"></activity>
     </application>
 
 </manifest>

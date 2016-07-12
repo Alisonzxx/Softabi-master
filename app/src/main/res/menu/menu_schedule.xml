@@ -8,6 +8,12 @@
         android:title="もちものリスト"
         app:showAsAction="never" />
     <item
+        android:id="@+id/action_choose"
+        android:orderInCategory="100"
+        android:title="初日を選択"
+        app:showAsAction="never"
+        />
+    <item
         android:id="@+id/action_add_schedule"
         android:orderInCategory="100"
         android:title="予定を追加"

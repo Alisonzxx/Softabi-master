@@ -9,8 +9,8 @@ import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
 
-import com.example.softabi.softabi.database.ScheduleContract;
-import com.example.softabi.softabi.database.ScheduleDbHelper;
+import com.example.softabi.softabi.scheDB.ScheduleContract;
+import com.example.softabi.softabi.scheDB.ScheduleDbHelper;
 
 public class EditActivity extends AppCompatActivity {
     private static final String TAG = "EditActivity";
@@ -22,8 +22,8 @@ public class EditActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit);
-
         sHelper = new ScheduleDbHelper(this);
+
         /*SQLiteDatabase db = sHelper.getReadableDatabase();
         Cursor cursor = db.query(ScheduleContract.ScheduleEntry.TABLE,
                 new String[]{ScheduleContract.ScheduleEntry._ID,
@@ -59,22 +59,17 @@ public class EditActivity extends AppCompatActivity {
         EditText scheduleComment = (EditText)findViewById(R.id.commentEdit);
         String comment = String.valueOf(scheduleComment.getText());
 
-        //SharedPreferences data = getSharedPreferences("DataSave", Context.MODE_PRIVATE);
-        //SharedPreferences.Editor editor = data.edit();
-        //editor.putString("DateSave", date);
-        //editor.putString("TimeSave", time);
-
         //Log.d(TAG,date+ ", " + title +", " + time + ", "+ comment);
 
         //ぬるぽでた
         SQLiteDatabase db = sHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
-        //values.put(ScheduleContract.ScheduleEntry.COL_SCHEDULE_DATE, date);
+        values.put(ScheduleContract.ScheduleEntry.COL_SCHEDULE_DATE, date);
         values.put(ScheduleContract.ScheduleEntry.COL_SCHEDULE_TIME, time);
         values.put(ScheduleContract.ScheduleEntry.COL_SCHEDULE_TITLE, title);
         values.put(ScheduleContract.ScheduleEntry.COL_SCHEDULE_COMMENT, comment);
-        db.insert(ScheduleContract.ScheduleEntry.TABLE,
-        null, values);
+        db.insertWithOnConflict(ScheduleContract.ScheduleEntry.TABLE,
+        null, values,SQLiteDatabase.CONFLICT_REPLACE);
         db.close();
 
         startActivity(intent);

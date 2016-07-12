@@ -1,7 +1,12 @@
 package com.example.softabi.softabi;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.design.widget.TabLayout;
+import android.support.v4.widget.TextViewCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
@@ -10,11 +15,21 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.EditText;
+import android.widget.ListView;
+import android.widget.TextView;
+
+import com.example.softabi.softabi.scheDB.ScheduleContract;
+import com.example.softabi.softabi.scheDB.ScheduleDbHelper;
+
+import java.util.ArrayList;
 
 public class ScheduleActivity extends AppCompatActivity {
 
@@ -32,6 +47,11 @@ public class ScheduleActivity extends AppCompatActivity {
      * The {@link ViewPager} that will host the section contents.
      */
     private ViewPager mViewPager;
+    private ScheduleDbHelper sHelper;
+    private static final String TAG = "ScheduleActivity";
+    private SharedPreferences data;
+    private ArrayAdapter<String> mAdapter;
+    private ListView mScheduleListView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,8 +81,84 @@ public class ScheduleActivity extends AppCompatActivity {
         });
 */
 
+/*
+data = getSharedPreferences("DataStore", Context.MODE_PRIVATE);
+        if(data!=null){
+        TextView flagmentDate = (TextView) findViewById(R.id.year);
+        flagmentDate.setText(data.getString("date",null));
+        }
+        */
 
+/*
+        EditText yearEdit = (EditText) findViewById(R.id.year);
+        yearEdit.setHint(data.getString("year","先に日付を"));
+
+        EditText monthEdit = (EditText) findViewById(R.id.month);
+        monthEdit.setHint(data.getString("month","入力"));
+
+        EditText dayEdit = (EditText) findViewById(R.id.date);
+        dayEdit.setHint(data.getString("day","してね"));
+*/
+        //mAdapter = new ArrayAdapter<String>();
+        sHelper = new ScheduleDbHelper(this);
+        mScheduleListView = (ListView) findViewById(R.id.list_schedule);
+        upDateUI();
     }
+
+    public void upDateUI(){
+        data = getSharedPreferences("DataStore", Context.MODE_PRIVATE);
+        String date = data.getString("date",null);
+
+        if(date!=null) {
+            ArrayList<String> timeList = new ArrayList<>();
+            ArrayList<String> titleList = new ArrayList<>();
+            ArrayList<String> commentList = new ArrayList<>();
+            SQLiteDatabase db = sHelper.getReadableDatabase();
+            Cursor cursor = db.query(ScheduleContract.ScheduleEntry.TABLE,
+                    new String[]{ScheduleContract.ScheduleEntry._ID,
+                            ScheduleContract.ScheduleEntry.COL_SCHEDULE_DATE,
+                            ScheduleContract.ScheduleEntry.COL_SCHEDULE_TIME,
+                            ScheduleContract.ScheduleEntry.COL_SCHEDULE_TITLE,
+                            ScheduleContract.ScheduleEntry.COL_SCHEDULE_COMMENT},
+                    "date like ?", new String[]{date}, null, null,"time asc");
+            while (cursor.moveToNext()) {
+                //int idx = cursor.getColumnIndex(ScheduleContract.ScheduleEntry.COL_SCHEDULE_DATE);
+                int idx = cursor.getColumnIndex(ScheduleContract.ScheduleEntry.COL_SCHEDULE_TIME);
+                int idx2 = cursor.getColumnIndex(ScheduleContract.ScheduleEntry.COL_SCHEDULE_TITLE);
+                int idx3 = cursor.getColumnIndex(ScheduleContract.ScheduleEntry.COL_SCHEDULE_COMMENT);
+                timeList.add(cursor.getString(idx));
+                titleList.add(cursor.getString(idx2));
+                commentList.add(cursor.getString(idx3));
+                //Log.d(TAG, cursor.getString(idx) + ", " + cursor.getString(idx2) + ", " + cursor.getString(idx3));
+            }
+            for(int i = 0; i < timeList.size();i++){
+                Log.d(TAG,timeList.get(i));
+            }
+            if(mAdapter == null){
+                mAdapter = new ArrayAdapter<>(this, R.layout.schedule_list,
+                        R.id.schedule_time, timeList);
+                mScheduleListView.setAdapter(mAdapter);//ここでぬるぽがでる
+               /* mAdapter = new ArrayAdapter<>(this,
+                        R.layout.schedule_list,
+                        R.id.schedule_title,
+                        titleList);
+                mAdapter = new ArrayAdapter<>(this,
+                        R.layout.schedule_list,
+                        R.id.schedule_comment,
+                        commentList);*/
+
+            }else{
+                mAdapter.clear();
+                mAdapter.addAll(timeList);
+                //mAdapter.addAll(titleList);
+                //mAdapter.addAll(commentList);
+                mAdapter.notifyDataSetChanged();
+            }
+            cursor.close();
+            db.close();
+        }
+    }
+
 
 
     @Override
@@ -88,6 +184,11 @@ public class ScheduleActivity extends AppCompatActivity {
             Intent intent = new Intent(this, EditActivity.class);
             startActivity(intent);
         }
+
+        if(id == R.id.action_choose){
+            Intent intent = new Intent(this, FirstDayActivity.class);
+            startActivity(intent);
+        }
         return super.onOptionsItemSelected(item);
     }
 
@@ -100,23 +201,8 @@ public class ScheduleActivity extends AppCompatActivity {
          * fragment.
          */
         private static final String ARG_SECTION_NUMBER = "section_number";
-        //ScheduleDbHelper sHelper;
 
         public PlaceholderFragment() {
-            /*SQLiteDatabase db = EditActivity.sHelper.getReadableDatabase();
-        Cursor cursor = db.query(ScheduleContract.ScheduleEntry.TABLE,
-                new String[]{ScheduleContract.ScheduleEntry._ID,
-                        ScheduleContract.ScheduleEntry.COL_SCHEDULE_DATE,
-                        ScheduleContract.ScheduleEntry.COL_SCHEDULE_TIME,
-                        ScheduleContract.ScheduleEntry.COL_SCHEDULE_TITLE,
-                        ScheduleContract.ScheduleEntry.COL_SCHEDULE_COMMENT},
-                null,null,null,null,null);
-        while(cursor.moveToNext()) {
-            int idx = cursor.getColumnIndex(ScheduleContract.ScheduleEntry.COL_SCHEDULE_DATE);
-            Log.d(TAG, "Date: " + cursor.getString(idx));
-        }
-        cursor.close();
-        db.close();*/
         }
 
         /**
@@ -142,8 +228,6 @@ public class ScheduleActivity extends AppCompatActivity {
             return rootView;
         }
 
-        private void updateUI() {
-        }
     }
 
     /**
