@@ -3,8 +3,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.example.softabi.softabi.ScheduleActivity">
     <item
-        android:id="@+id/action_settings"
+        android:id="@+id/action_item"
         android:orderInCategory="100"
-        android:title="@string/action_settings"
+        android:title="もちものリスト"
         app:showAsAction="never" />
+    <item
+        android:id="@+id/action_choose"
+        android:orderInCategory="100"
+        android:title="初日を選択"
+        app:showAsAction="never"
+        />
+    <item
+        android:id="@+id/action_add_schedule"
+        android:orderInCategory="100"
+        android:title="予定を追加"
+        app:showAsAction="never"
+        />
 </menu>

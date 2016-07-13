@@ -14,7 +14,8 @@ public class TopActivity extends AppCompatActivity {
     }
 
     public void goToSchedule(View view) {
-    Intent intent = new Intent(this, ScheduleActivity.class);
+        Intent intent = new Intent(this, ScheduleActivity.class);
+        //Intent intent = new Intent(this,FirstDayActivity.class);
         startActivity(intent);
     }
 

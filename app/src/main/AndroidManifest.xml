@@ -10,6 +10,7 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
+        android:name="android.support.multidex.MultiDexApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -34,17 +35,21 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
+        <activity android:name=".EditListActivity" />
+        <activity android:name=".ListActivity" />
+        <activity android:name=".EditActivity" />
+        <activity
+            android:name=".ScheduleActivity"
+            android:label="@string/title_activity_schedule"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".SampleActivity"
+            android:label="@string/title_activity_sample"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".FirstDayActivity" />
         <activity
             android:name=".MapsActivity"
-            android:label="@string/title_activity_maps">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="TopActivity" />
-        </activity>
-        <activity android:name=".EditListActivity" />
-        <activity android:name=".ScheduleActivity" />
-        <activity android:name=".ListActivity" />
-        <activity android:name=".EditActivity"></activity>
+            android:label="@string/title_activity_maps"></activity>
     </application>
 
 </manifest>
