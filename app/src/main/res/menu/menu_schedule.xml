@@ -2,21 +2,48 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.example.softabi.softabi.ScheduleActivity">
-    <item
-        android:id="@+id/action_item"
-        android:orderInCategory="100"
-        android:title="もちものリスト"
-        app:showAsAction="never" />
-    <item
-        android:id="@+id/action_choose"
-        android:orderInCategory="100"
-        android:title="初日を選択"
-        app:showAsAction="never"
-        />
+    <!--<item
+       android:id="@+id/action_item"
+       android:orderInCategory="100"
+       android:title="もちものリスト"
+       app:showAsAction="never" />
+  <item
+       android:id="@+id/action_choose"
+       android:orderInCategory="100"
+       android:title="初日を選択"
+       app:
+
     <item
         android:id="@+id/action_add_schedule"
         android:orderInCategory="100"
         android:title="予定を追加"
         app:showAsAction="never"
+        />-->
+
+    <item
+        android:id="@+id/action_day1"
+        android:orderInCategory="100"
+        android:title="1日目"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_day2"
+        android:orderInCategory="100"
+        android:title="2日目"
+        app:showAsAction="never"
         />
+
+    <item
+        android:id="@+id/action_day3"
+        android:orderInCategory="100"
+        android:title="3日目"
+        app:showAsAction="never"
+        />
+
+    <item
+        android:id="@+id/action_top"
+        android:orderInCategory="100"
+        android:title="トップに戻る"
+        app:showAsAction="never"
+        />
+
 </menu>

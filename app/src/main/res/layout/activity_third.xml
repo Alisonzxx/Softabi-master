@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorBackground"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.example.softabi.softabi.ThirdActivity">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="3日目"
+        android:textSize="30dp"
+        android:id="@+id/LabelDate3"
+        />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/frameLayout3"
+        android:background="#FFFFFF"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/LabelDate3"
+        android:layout_above="@+id/itemButton">
+
+        <ListView
+            android:id="@+id/list_thirdDay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </FrameLayout>
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="100dp"
+        android:src="@drawable/motimono"
+        android:scaleType="fitCenter"
+        android:id="@+id/itemButton"
+        android:onClick="goToItems"
+        android:background="#D8E9F0"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="予定を追加"
+        android:id="@+id/addSchedule"
+        android:onClick="addSchedule"
+        android:layout_alignBottom="@+id/LabelDate3"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+</RelativeLayout>
