@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.example.softabi.softabi.scheDB.ScheduleContract;
 import com.example.softabi.softabi.scheDB.ScheduleDbHelper;
@@ -23,32 +24,15 @@ public class EditActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit);
         sHelper = new ScheduleDbHelper(this);
-
-        /*SQLiteDatabase db = sHelper.getReadableDatabase();
-        Cursor cursor = db.query(ScheduleContract.ScheduleEntry.TABLE,
-                new String[]{ScheduleContract.ScheduleEntry._ID,
-                        ScheduleContract.ScheduleEntry.COL_SCHEDULE_DATE,
-                        ScheduleContract.ScheduleEntry.COL_SCHEDULE_TIME,
-                        ScheduleContract.ScheduleEntry.COL_SCHEDULE_TITLE,
-                        ScheduleContract.ScheduleEntry.COL_SCHEDULE_COMMENT},
-                null,null,null,null,null);
-        while(cursor.moveToNext()) {
-            int idx = cursor.getColumnIndex(ScheduleContract.ScheduleEntry.COL_SCHEDULE_DATE);
-            Log.d(TAG, "Date: " + cursor.getString(idx));
-        }
-        cursor.close();
-        db.close();*/
-
     }
     public void saveSchedule(View v){
-        Intent intent = new Intent(this, ScheduleActivity.class);
+        Intent intent = new Intent(this, FirstActivity.class);
 
         DatePicker datePicker = (DatePicker) findViewById(R.id.datePicker);
         int year = datePicker.getYear();//年を取得
         int month = datePicker.getMonth();//月を取得
         int day = datePicker.getDayOfMonth();//日を取得
-        String date = String.format("%d年%d月%d日",year,month+1,day );
-        //monthに+1をする
+        String date = String.format("%d年%d月%d日",year,month+1,day );//monthに+1をする
 
         EditText scheduleTime = (EditText)findViewById(R.id.timeEdit);
         String time = String.valueOf(scheduleTime.getText());
@@ -60,8 +44,7 @@ public class EditActivity extends AppCompatActivity {
         String comment = String.valueOf(scheduleComment.getText());
 
         //Log.d(TAG,date+ ", " + title +", " + time + ", "+ comment);
-
-        //ぬるぽでた
+    if(!time.equals("")&&!title.equals("")) {
         SQLiteDatabase db = sHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(ScheduleContract.ScheduleEntry.COL_SCHEDULE_DATE, date);
@@ -69,11 +52,14 @@ public class EditActivity extends AppCompatActivity {
         values.put(ScheduleContract.ScheduleEntry.COL_SCHEDULE_TITLE, title);
         values.put(ScheduleContract.ScheduleEntry.COL_SCHEDULE_COMMENT, comment);
         db.insertWithOnConflict(ScheduleContract.ScheduleEntry.TABLE,
-        null, values,SQLiteDatabase.CONFLICT_REPLACE);
+                null, values, SQLiteDatabase.CONFLICT_REPLACE);
         db.close();
 
         startActivity(intent);
-
+    }else{
+        TextView text = (TextView) findViewById(R.id.errorMessage);
+        text.setText("全て入力してください。");
+    }
     }
 
 }

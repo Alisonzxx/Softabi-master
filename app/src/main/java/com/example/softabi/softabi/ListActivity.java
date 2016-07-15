@@ -123,7 +123,7 @@ public class ListActivity extends AppCompatActivity {
         db.close();
     }
 
-    public void deleteItem(View view) {
+    public void deleteSchedule(View view) {
         View parent = (View) view.getParent();
         TextView taskTextView = (TextView) parent.findViewById(R.id.item_title);
         String task = String.valueOf(taskTextView.getText());
@@ -135,8 +135,4 @@ public class ListActivity extends AppCompatActivity {
         updateUI();
     }
 
-    public void goToEditList(View view) {
-        Intent intent = new Intent(this,EditListActivity.class);
-        startActivity(intent);
-    }
 }

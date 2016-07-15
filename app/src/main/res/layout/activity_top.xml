@@ -12,33 +12,46 @@
     tools:context="com.example.softabi.softabi.TopActivity">
 
 
-    <Button
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:scaleType="fitXY"
+        android:id="@+id/imageView"
+        android:layout_alignParentTop="true"
+        android:src="@drawable/stback"
+        />
+
+    <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/button_schedule"
+        android:background="@null"
         android:onClick="goToSchedule"
         android:id="@+id/button_schedule"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
+        android:src="@drawable/stsiori"
+        android:layout_alignTop="@+id/button_Map"
+        android:layout_alignLeft="@+id/textView"
+        android:layout_alignStart="@+id/textView" />
 
-    <Button
+    <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/button_map"
+        android:background="@null"
         android:id="@+id/button_Map"
         android:onClick="goToMap"
-        android:layout_marginTop="43dp"
-        android:layout_below="@+id/button_schedule"
-        android:layout_alignLeft="@+id/button_schedule"
-        android:layout_alignStart="@+id/button_schedule" />
+        android:src="@drawable/stmap"
+        android:layout_below="@+id/textView"
+        android:layout_alignRight="@+id/textView"
+        android:layout_alignEnd="@+id/textView"
+        android:layout_marginTop="150dp" />
 
-    <TextView
+    <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="そふたび！"
         android:id="@+id/textView"
-        android:layout_marginTop="134dp"
+        android:src="@drawable/softabi_name"
+        android:layout_marginTop="69dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
 
